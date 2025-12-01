@@ -1,24 +1,21 @@
-DROP TABLE messages;
-CREATE TABLE messages(
-    id serial PRIMARY KEY,
-    body text NOT NULL CHECK (body != ''),
-    author varchar(256) NOT NULL CHECK (author != ''),
-    created_at timestamp DEFAULT current_timestamp,
-    is_read boolean DEFAULT false
+CREATE TABLE coordinates(
+    x INT ,
+    y INT,
+    z INT,
+   CONSTRAINT "UNIQUE_COORD" PRIMARY KEY(x, y, z)
 );
--- INSERT INTO messages
--- VALUES('Hello John!', 'Me');
 
-INSERT INTO messages (author, body)
-VALUES('John', 'Hello.'),
-    ('Me', 'Co to coffe!'),
-    ('John', 'Go.');
+--(11, 22, 36);
+--(252, 6, 88);
+--(11, 22, 36); -- помилка
 
-INSERT INTO messages (author, body)
-VALUES('Peter', 'Hello.'),
-    ('Peter', 'Hello.');
+INSERT INTO coordinates VALUES
+(11, 22, 36),
+(252, 76, 88);
 
-INSERT INTO messages(id, body, author)
-VALUES(NULL, 'text4', 'Message autor4'); -- помилка
--- ключ - ознака(найчастіше штучна) яка відрізняє один запис від іншого
--- первинний ключ - використовується для того, щоб ключу дати обмеження унікальності
+INSERT INTO coordinates VALUES
+(11, 22, 36);-- тут повернулась помилка
+
+INSERT INTO coordinates VALUES
+(111, 223, 376),
+(2582, 79, 88);
