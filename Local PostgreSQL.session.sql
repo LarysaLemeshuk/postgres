@@ -1,17 +1,24 @@
-CREATE TABLE users(
-    first_name VARCHAR(64),
-    last_name VARCHAR(64),
-    biography text,
-    gender VARCHAR(30),
-    is_subscribe boolean,
-    birthday date,
-    foot_size smallint,
-    height numeric(5, 2)
+DROP TABLE messages;
+CREATE TABLE messages(
+    id serial PRIMARY KEY,
+    body text NOT NULL CHECK (body != ''),
+    author varchar(256) NOT NULL CHECK (author != ''),
+    created_at timestamp DEFAULT current_timestamp,
+    is_read boolean DEFAULT false
 );
+-- INSERT INTO messages
+-- VALUES('Hello John!', 'Me');
 
-INSERT INTO users VALUES('John', 'Doe', 'Тут може бути велика розповідь про ДЖона', 'male', true, '2004-09-14', 43, 1.85);
+INSERT INTO messages (author, body)
+VALUES('John', 'Hello.'),
+    ('Me', 'Co to coffe!'),
+    ('John', 'Go.');
 
-INSERT INTO users VALUES('Susan', 'Doe', 'Тут може бути велика розповідь про Сьюзан', 'female', true, '2004-09-15', 38, 1.65),
-('Peter', 'Doe', 'Тут може бути велика розповідь про Пітера', 'male', true, '2004-12-14', 45, 1.92);
+INSERT INTO messages (author, body)
+VALUES('Peter', 'Hello.'),
+    ('Peter', 'Hello.');
 
-INSERT INTO users VALUES('Blaeke', 'Doe', 'Тут може бути велика розповідь про Блейка', 'male', false, '2000-10-14', NULL, NULL);
+INSERT INTO messages(id, body, author)
+VALUES(NULL, 'text4', 'Message autor4'); -- помилка
+-- ключ - ознака(найчастіше штучна) яка відрізняє один запис від іншого
+-- первинний ключ - використовується для того, щоб ключу дати обмеження унікальності
