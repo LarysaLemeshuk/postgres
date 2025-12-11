@@ -1,34 +1,27 @@
-/* ALTER  TABLE*/
-CREATE TABLE products(
+CREATE TABLE books(
     id serial PRIMARY KEY,
-    brand varchar(200) NOT NULL CHECK (brand != ''),
-    model varchar(300) NOT NULL CHECK (model != ''),
-    description text,
-    category varchar(200) NOT NULL CHECK (category != ''),
-    price numeric(10, 2) NOT NULL CHECK (price > 0),
-    discounted_prise numeric(10, 2) CHECK (discounted_prise <= price)
+    autor varchar(256) ,
+    name varchar(300),
+    year varchar(4),
+    publisher varchar(256),
+    category varchar(256),
+    synopsys text,
+    quantity int,
+    status boolean
 );
-DROP TABLE products;
-INSERT INTO products(brand, model, category, price)
-values ('Samsung', 'S10', 'smartphones', 200),
-    ('Iphone', '15Pro', 'smartphones', 1200),
-    ('Sony', '456', 'TV', 300),
-    ('Sony', '457', 'TV', 600);
 
-ALTER TABLE products
-ADD CONSTRAINT "unique_brand_model_pair" UNIQUE(brand, model);
+ALTER TABLE books
+ADD CONSTRAINT "quantity_more_zero" CHECK (quantity >= 0);
 
-INSERT INTO products(brand, model, category, price)
-values ('Iphone', '15Pro', 'smartphones', 500);
+ALTER TABLE books
+ADD CONSTRAINT "autor_name_unique" UNIQUE(autor, name);
 
-ALTER TABLE products
-ADD COLUMN quantity int;
+INSERT INTO books(autor, name, quantity) VALUES
+('Оноре де Бальзак', 'Гобсек', 200);
 
-ALTER TABLE products
-ADD CONSTRAINT "product_quantity_check" CHECK(quantity >= 0);
+INSERT INTO books(autor, name, quantity) VALUES
+('Оскар уайльд', 'Портрет Доріана Грея', 0);
 
-ALTER TABLE products
-DROP CONSTRAINT "product_quantity_check";
+INSERT INTO books(autor, name, quantity) VALUES
+('Оноре де Бальзак', 'Шагренеа шкіра', 1500);
 
-ALTER TABLE products
-DROP COLUMN quantity;
