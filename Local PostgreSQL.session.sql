@@ -1,21 +1,34 @@
-CREATE TABLE coordinates(
-    x INT ,
-    y INT,
-    z INT,
-   CONSTRAINT "UNIQUE_COORD" PRIMARY KEY(x, y, z)
+/* ALTER  TABLE*/
+CREATE TABLE products(
+    id serial PRIMARY KEY,
+    brand varchar(200) NOT NULL CHECK (brand != ''),
+    model varchar(300) NOT NULL CHECK (model != ''),
+    description text,
+    category varchar(200) NOT NULL CHECK (category != ''),
+    price numeric(10, 2) NOT NULL CHECK (price > 0),
+    discounted_prise numeric(10, 2) CHECK (discounted_prise <= price)
 );
+DROP TABLE products;
+INSERT INTO products(brand, model, category, price)
+values ('Samsung', 'S10', 'smartphones', 200),
+    ('Iphone', '15Pro', 'smartphones', 1200),
+    ('Sony', '456', 'TV', 300),
+    ('Sony', '457', 'TV', 600);
 
---(11, 22, 36);
---(252, 6, 88);
---(11, 22, 36); -- помилка
+ALTER TABLE products
+ADD CONSTRAINT "unique_brand_model_pair" UNIQUE(brand, model);
 
-INSERT INTO coordinates VALUES
-(11, 22, 36),
-(252, 76, 88);
+INSERT INTO products(brand, model, category, price)
+values ('Iphone', '15Pro', 'smartphones', 500);
 
-INSERT INTO coordinates VALUES
-(11, 22, 36);-- тут повернулась помилка
+ALTER TABLE products
+ADD COLUMN quantity int;
 
-INSERT INTO coordinates VALUES
-(111, 223, 376),
-(2582, 79, 88);
+ALTER TABLE products
+ADD CONSTRAINT "product_quantity_check" CHECK(quantity >= 0);
+
+ALTER TABLE products
+DROP CONSTRAINT "product_quantity_check";
+
+ALTER TABLE products
+DROP COLUMN quantity;
