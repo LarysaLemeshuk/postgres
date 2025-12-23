@@ -1,27 +1,28 @@
-CREATE TABLE books(
+
+
+CREATE TABLE orders(
     id serial PRIMARY KEY,
-    autor varchar(256) ,
-    name varchar(300),
-    year varchar(4),
-    publisher varchar(256),
-    category varchar(256),
-    synopsys text,
-    quantity int,
-    status boolean
+    created_at timestamp NOT NULL DEFAULT current_timestamp,
+    custumer_id int REFERENCES users(id)
 );
 
-ALTER TABLE books
-ADD CONSTRAINT "quantity_more_zero" CHECK (quantity >= 0);
+DROP TABLE orders;
+ALTER TABLE users
+ADD COLUMN id serial PRIMARY KEY;
 
-ALTER TABLE books
-ADD CONSTRAINT "autor_name_unique" UNIQUE(autor, name);
+CREATE TABLE oreders_to_produts(
+    product_id int REFERENCES products(id),
+    orders_id int REFERENCES orders(id),
+    quntity int,
+    PRIMARY KEY(orders_id, product_id)
+);
 
-INSERT INTO books(autor, name, quantity) VALUES
-('Оноре де Бальзак', 'Гобсек', 200);
 
-INSERT INTO books(autor, name, quantity) VALUES
-('Оскар уайльд', 'Портрет Доріана Грея', 0);
-
-INSERT INTO books(autor, name, quantity) VALUES
-('Оноре де Бальзак', 'Шагренеа шкіра', 1500);
-
+-- Оформлення замовлення для юзера
+-- 1 створили замовлення
+INSERT INTO orders(custumer_id) VALUES(2);
+-- 2 наповнити замовлення
+INSERT INTO oreders_to_produts (product_id, orders_id, quntity)VALUES
+(2, 1, 1),
+(3, 1, 2),
+(4, 1, 1);
