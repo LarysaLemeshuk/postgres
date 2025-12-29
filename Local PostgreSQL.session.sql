@@ -21,3 +21,11 @@ VALUES
 
 ALTER TABLE products
 ADD COLUMN is_luxury boolean GENERATED ALWAYS AS (price > 800) STORED;
+
+UPDATE products SET price = price * 3 WHERE price < 600;
+
+INSERT INTO products(brand, model, price, category) VALUES
+('Xiaomi', '45454545', 1000, 'phones') RETURNING id;
+
+INSERT INTO products(brand, model, price, category) VALUES
+('Iphone', '14Pro', 800, 'phones') RETURNING *;
