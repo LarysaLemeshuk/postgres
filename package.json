@@ -1,0 +1,24 @@
+{
+  "name": "postgres",
+  "version": "0.1.0",
+  "description": "",
+  "private": "true",
+  "scripts": {
+    "start": "node ./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LarysaLemeshuk/postgres.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/LarysaLemeshuk/postgres/issues"
+  },
+  "homepage": "https://github.com/LarysaLemeshuk/postgres#readme",
+  "dependencies": {
+    "pg": "^8.16.3"
+  }
+}
