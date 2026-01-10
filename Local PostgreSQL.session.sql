@@ -45,3 +45,5 @@ CREATE TABLE orders_to_products(
     quantity int NOT NULL DEFAULT 1,
     PRIMARY KEY(order_id, products_id)
 )
+
+DELETE FROM users;

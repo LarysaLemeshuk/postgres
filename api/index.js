@@ -1,6 +1,6 @@
 module.exports.getUsers = async () => {
   const response = await fetch(
-    'https://randomuser.me/api?results=500&seed=ONL'
+    'https://randomuser.me/api?results=500&seed=ONL&page=4'
   );
   const data = await response.json();
 
