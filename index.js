@@ -1,23 +1,16 @@
-const { Client } = require('pg');
-const { mapUsers } = require('./utils');
-const { configs } = require('./configs');
-const { getUsers } = require('./api');
+const { User, client } = require('./models');
 
-const client = new Client(configs);
+const { getUsers } = require('./api');
 
 async function runRequest() {
   await client.connect();
- 
-  const response = await client.query(
-    `INSERT INTO users (first_name, last_name, is_subscribe, gender) VALUES
-    ${mapUsers(usersArray)};`
-  );
 
+  const usersArray = await getUsers();
+
+  const response = await User.bulkCreate(usersArray);
   console.log(response);
 
   await client.end();
 }
 
- runRequest();
-
-
+runRequest();
