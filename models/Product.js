@@ -2,12 +2,16 @@ class Product {
   static _client;
   static _tableName;
 
+    static async findAll() {
+    return await this._client.query(`SELECT * FROM  ${this._tableName};`);
+  }
+
   static async bulkCreate(phonesArray) {
     // 1. перетворити jsобʼєкти телефонів в SQL-запит
     const valuesString = phonesArray
       .map(
         ({ brand, model, price, quantity = 1, category }) =>
-          `('${brand}', '${model}', '${price}', '${quantity}', '${category}')`
+          `('${brand}', '${model}', '${price}', '${quantity}, '${category}')`
       )
       .join(',');
 
@@ -20,6 +24,10 @@ class Product {
 
     // 3. результат запиту повернути як результат роботи методу моделі
     return rows;
+  }
+
+  static async findAll() {
+    return await this._client.query(`SELECT * FROM  ${this._tableName};`);
   }
 }
 

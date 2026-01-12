@@ -47,3 +47,4 @@ CREATE TABLE orders_to_products(
 )
 
 DELETE FROM users;
+DELETE FROM orders;

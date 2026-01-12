@@ -14,7 +14,9 @@ class User {
     // тут має бути запит до бд на створення юзерів
     return await this._client.query(
       //User._client.query
-      `INSERT INTO users (first_name, last_name, email, is_subscribe, gender) VALUES
+      `INSERT INTO ${
+        this._tableName
+      } (first_name, last_name, email, is_subscribe, gender) VALUES
             ${mapUsers(usersArray)};`
     );
   }
